@@ -1,15 +1,46 @@
 //
-//  PopularItemsView.swift
+//  MainScreen.swift
 //  CoffeShopApp
 //
-//  Created by George Clinkscales on 10/25/25.
+//  Created by George Clinkscales on 10/27/25.
 //
 
 import SwiftUI
 
-struct PopularItemsView: View {
+struct MainScreen: View {
     @State private var showingSheet: Bool = false
+    @State private var search: String = ""
     
+    private let allItems = [
+        "Bagel",
+        "Cookie",
+        "Cinnamon Roll",
+        "Cupcake",
+        "Croissant",
+        "Danish",
+        "Muffin",
+        "Cortado",
+        "Espresso",
+        "Latte",
+        "Black Coffee",
+        "Frappe",
+        "Matcha",
+        "Macchiato",
+        "Green Tea",
+        "Black Tea",
+        "Chai Latte",
+        "Americano",
+        "Cappuccino",
+    ]
+    
+    private var filteredItems: [String] {
+        let trimmed = search.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else {
+            return allItems
+        }
+        return allItems.filter { $0.range(of: trimmed,
+                                          options: .caseInsensitive) != nil }
+    }
     
     var coffees: [Coffee] = [
         Coffee(name: "Cortado", assetName: "Cortado", prices: 4.50, description: "A balanced, no-frills espresso drink made by “cutting” a double shot of espresso with an equal amount of warm, lightly textured milk. The cortado softens espresso’s intensity without masking its character, delivering a smooth, focused flavor with gentle sweetness and minimal foam. It’s small, straightforward, and ideal for those who want the clarity of espresso with just enough milk to round the edges.", basePrice: 4.50),
@@ -18,12 +49,13 @@ struct PopularItemsView: View {
         Coffee(name: "Black Coffee", assetName: "BlackCoffee", prices: 2.50, description: "A pure, unadorned brew made from freshly ground coffee and hot water—no milk, no sugar, just the coffee itself. Black coffee highlights the bean’s true character: from bright, citrusy and floral in lighter roasts to rich, chocolaty, and nutty in darker roasts. Clean and straightforward, it offers a crisp mouthfeel and a lingering finish. Ideal for those who appreciate clarity of flavor and the nuances of origin, roast, and brew method.", basePrice: 2.50),
         Coffee(name: "Frappe", assetName: "Frappe", prices: 6.50, description: "A frosty, blended coffee drink that’s all about creamy refreshment. Traditionally made with instant coffee, cold water, and sugar shaken to a thick foam, modern frappes often blend brewed coffee or espresso with milk, ice, and sweeteners, then finish with whipped cream or flavored drizzles. Expect a smooth, milkshake-like texture with a cool coffee kick—perfect for hot days and customizable with flavors like mocha, caramel, or vanilla.", basePrice: 6.50),
         Coffee(name: "Matcha", assetName: "Matcha", prices: 5.50, description: "A vibrant, finely ground green tea powder whisked into hot water (or milk) for a smooth, creamy cup with a naturally sweet, grassy flavor and a subtle umami finish. Unlike steeped tea, matcha uses the whole leaf, delivering a richer body and a gentle, sustained energy from its blend of caffeine and calming L‑theanine. Expect a velvety texture, bright jade color, and aromas of fresh greens and light nuttiness. Enjoy it traditionally as usucha (thin, frothy) or koicha (thick, luxurious), or try a modern twist as a matcha latte over steamed milk—dairy or plant-based—for a silky, soothing sip.", basePrice: 5.50),
-        Coffee(name: "Macchiato", assetName: "Macchiato", prices: 4.50, description: "An espresso-forward classic “marked” with a small dollop of velvety milk foam. The macchiato preserves the intensity and aroma of a freshly pulled shot while softening its edges with just a touch of sweetness and creaminess. Expect a concentrated, bold flavor, a light, silky cap of foam, and a quick, satisfying finish. Ideal for those who love the clarity of espresso but want a hint of texture—perfect as a mid-morning pick‑me‑up.", basePrice: 4.50),
+        Coffee(name: "Macchiato", assetName: "Macchiato", prices: 4.50, description: "An espresso-forward classic “marked” with a small dollop of velvety milk foam. The macchiato preserves the intensity and aroma of a freshly pulled shot while softening its edges with just a touch of sweetness and creaminess. Expect a concentrated, bold flavor, a light, silky cap of foam, and a quick, satisfying finish. Ideal for those who love the clarity of espresso but want a hint of texture—perfect as a mid-morning pick‑me‑up.", basePrice: 4.5),
         Coffee(name: "Green Tea", assetName: "GreenTea", prices: 4.50, description: "A delicate, refreshing infusion made from minimally oxidized tea leaves that preserve fresh, verdant flavors and a gentle lift of caffeine. Depending on origin and style, green tea can range from grassy and sweet (Japanese sencha), to nutty and toasty (Chinese longjing), to floral and subtly fruity (jasmine‑scented). Expect a light body, clean finish, and aromas reminiscent of fresh herbs, steamed greens, or spring blossoms. Best brewed with cooler water to avoid bitterness, green tea is a calming, everyday cup that showcases clarity and nuance.", basePrice: 4.50),
         Coffee(name: "Black Tea", assetName: "BlackTea", prices: 4.50, description: "A robust, fully oxidized tea known for its deep color, brisk body, and comforting warmth. Black tea spans a wide flavor spectrum: malty and rich (Assam), bright and citrusy (Ceylon), honeyed and floral (Darjeeling), or smoky and bold (Lapsang Souchong). Expect a medium‑to‑full body with tannic structure, a lingering finish, and aromas that range from dried fruit and cocoa to toasted grain. Delicious plain, with lemon, or enriched with milk and sugar, black tea is a versatile daily staple and the backbone of classics like English Breakfast, Earl Grey, and Masala Chai.", basePrice: 4.50),
         Coffee(name: "Chai Latte", assetName: "Chai", prices: 4.50, description: "A cozy, aromatic blend of spiced black tea and steamed milk, finished with a light cap of foam. The chai base—typically infused with warming spices like cinnamon, cardamom, ginger, clove, and black pepper—delivers a fragrant sweetness and gentle heat, while the milk adds a silky, comforting texture. Expect a balanced cup that’s both invigorating and soothing, with layered spice notes and a creamy finish. Delicious on its own or sweetened with honey or vanilla, and equally inviting iced for a refreshing, spiced treat.", basePrice: 4.50),
         Coffee(name: "Americano", assetName: "Americano", prices: 3.50, description: "A smooth, café-classic made by diluting a shot (or two) of espresso with hot water. The Americano softens espresso’s intensity while preserving its aromatic complexity, yielding a clean, approachable cup with a light crema and a longer, sippable finish. Flavor ranges from chocolaty and nutty to bright and fruity, depending on the beans and roast. Enjoy it black for clarity, or add a splash of milk for extra softness; try it iced for a crisp, refreshing take with the same espresso backbone.", basePrice: 3.50),
         Coffee(name: "Cappuccino", assetName: "Cappuccino", prices: 4.50, description: "A classic espresso drink with equal parts bold espresso, steamed milk, and airy milk foam. The cappuccino delivers a harmonious balance: rich coffee flavor at the base, silky sweetness from the milk, and a light, velvety foam cap that adds texture and aroma. Expect a medium body, a lingering crema-like finish, and a touch of natural sweetness without overwhelming the espresso’s character. Enjoy it plain for clarity or dusted with cocoa or cinnamon for a cozy, aromatic accent. Ideal for a morning pick‑me‑up with a refined, café-style feel.", basePrice: 4.50),
+        Coffee(name: "Mocha", assetName: "Mocha", prices: 4.50, description: "A rich blend of velvety espresso and steamed milk infused with decadent dark chocolate, finished with a light cap of microfoam. Balanced and indulgent, with notes of cocoa, caramelized sugar, and a smooth, creamy body. Available hot or iced; customize with your choice of milk and an optional whipped cream topping.", basePrice: 4.50),
     ]
     
     
@@ -37,6 +69,8 @@ struct PopularItemsView: View {
         Pastry(name: "Bagel", assetName: "Bagel", prices: 3.50, description: "A bagel is a dense, chewy round bread with a distinctive glossy crust and a hole in the center. Traditionally made from a simple yeasted dough, it’s shaped into rings, briefly boiled to set the exterior, then baked to achieve its signature chew and shine. The result is a satisfying contrast: a firm, slightly crisp outer shell and a tight, tender crumb inside."),
         Pastry(name: "Brownie", assetName: "Brownie", prices: 3.50, description: "A brownie is a rich, chocolatey baked square with a dense, fudgy or cakey texture depending on the recipe. Made from a simple batter of melted chocolate or cocoa, butter, sugar, eggs, and flour, brownies bake into a glossy-topped slab that’s cut into individual pieces. The edges tend to be slightly chewy with a deeper caramelized flavor, while the center remains soft and moist, often with a melt-in-your-mouth quality."),
     ]
+    
+    
     
     var items: [Item] = [
         Item(name: "Cortado", assetName: "Cortado", prices: 4.50, description: "A balanced, no-frills espresso drink made by “cutting” a double shot of espresso with an equal amount of warm, lightly textured milk. The cortado softens espresso’s intensity without masking its character, delivering a smooth, focused flavor with gentle sweetness and minimal foam. It’s small, straightforward, and ideal for those who want the clarity of espresso with just enough milk to round the edges."),
@@ -61,62 +95,155 @@ struct PopularItemsView: View {
         Item(name: "Brownie", assetName: "Brownie", prices: 3.50, description: "A brownie is a rich, chocolatey baked square with a dense, fudgy or cakey texture depending on the recipe. Made from a simple batter of melted chocolate or cocoa, butter, sugar, eggs, and flour, brownies bake into a glossy-topped slab that’s cut into individual pieces. The edges tend to be slightly chewy with a deeper caramelized flavor, while the center remains soft and moist, often with a melt-in-your-mouth quality."),
     ]
     
+    var popularDrinks: [popDrink] = [
+        
+        
+        popDrink(name: "Latte", assetName: "Latte", prices: 5.50, description: "A smooth and creamy espresso-based beverage made with freshly pulled espresso and steamed milk, finished with a thin layer of silky microfoam. The latte balances bold coffee notes with a mellow, velvety texture, making it comforting and approachable. Enjoy it plain to appreciate the espresso’s character, or customize with flavors like vanilla, caramel, or hazelnut. Perfect for a gentle caffeine lift and a luxurious, everyday sip."),
+        popDrink(name: "Cortado", assetName: "Mocha", prices: 4.50, description: "A balanced, no-frills espresso drink made by “cutting” a double shot of espresso with an equal amount of warm, lightly textured milk. The cortado softens espresso’s intensity without masking its character, delivering a smooth, focused flavor with gentle sweetness and minimal foam. It’s small, straightforward, and ideal for those who want the clarity of espresso with just enough milk to round the edges."),
+        popDrink(name: "Frappe", assetName: "Frappe", prices: 6.50, description: "A frosty, blended coffee drink that’s all about creamy refreshment. Traditionally made with instant coffee, cold water, and sugar shaken to a thick foam, modern frappes often blend brewed coffee or espresso with milk, ice, and sweeteners, then finish with whipped cream or flavored drizzles. Expect a smooth, milkshake-like texture with a cool coffee kick—perfect for hot days and customizable with flavors like mocha, caramel, or vanilla."),
+        popDrink(name: "Macchiato", assetName: "Macchiato", prices: 4.50, description: "An espresso-forward classic “marked” with a small dollop of velvety milk foam. The macchiato preserves the intensity and aroma of a freshly pulled shot while softening its edges with just a touch of sweetness and creaminess. Expect a concentrated, bold flavor, a light, silky cap of foam, and a quick, satisfying finish. Ideal for those who love the clarity of espresso but want a hint of texture—perfect as a mid-morning pick‑me‑up.")
+    ]
     
     var body: some View {
-        //        var popularItems: [String] = ["(name: "Latte", assetName: "Latte", prices: 5.50, drinkDescription: "A smooth and creamy espresso-based beverage made with freshly pulled espresso and steamed milk, finished with a thin layer of silky microfoam. The latte balances bold coffee notes with a mellow, velvety texture, making it comforting and approachable. Enjoy it plain to appreciate the espresso’s character, or customize with flavors like vanilla, caramel, or hazelnut. Perfect for a gentle caffeine lift and a luxurious, everyday sip."),", "Frappe", "BlackTea", "Chai", "Brownie"]
-        NavigationStack {
-            ZStack {
-                
+        NavigationStack() {
+            
+            ZStack{
                 Color.sirenBeige
-                    .ignoresSafeArea()
-                
-                VStack() {
-                    NavigationLink {
-                        InfoPage()
-                    } label : {
-                            Image(.sirenCafe)
-                                .resizable()
-                                .scaledToFit()
-                                .cornerRadius(16)
-                                .padding()
-                                .shadow(color: Color(.black), radius: 5, x: 1.0, y: 1.0)
-                        }
-                    .accessibilityLabel("The Siren Cafe Info Page")
-                    .accessibilityHint("This button will take you to a page giving details about the cafe like address, phone number and opening date.")
+                    .edgesIgnoringSafeArea(.all)
+                ScrollView(.vertical) {
                     
                     
-                    Text("Popular Items")
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .padding()
-                        .foregroundColor(.sirenRed)
-                        .offset(x: -80, y: -10)
                     
-                    ScrollView(.horizontal) {
+                    
+                    VStack {
                         
-                        HStack {
-                            ForEach(coffees, id:\.self) { coffee in
+                        VStack (alignment: .leading) {
+                            
+                            Button(action: {
+                                showingSheet.toggle()
+                            }) {
+                                
+                                Image(.sirenCafe)
+                                    .resizable()
+                                    .scaledToFit()
+                                
+                                    .cornerRadius(16)
+                                    .padding()
+                                    .shadow(color: Color(.black), radius: 5, x: 1.0, y: 1.0)
+                            }
+                            .accessibilityLabel("The Siren Cafe Info Page")
+                            .accessibilityHint("This button will take you to a page giving details about the cafe like address, phone number and opening date.")
+                            
+                            
+                            
+                            VStack(alignment: .leading){
+                                
+                                SearchView()
+                                    .padding(.horizontal)
+                                
                                 NavigationLink {
-                                    CoffeeCustomizationView(coffee: coffee)
-                                } label : {
-                                    CoffeeTileView(coffee: coffee)
+                                    PopularItemsView()
+                                } label: {
+                                    ImageSliderView()
+                                }
+                                .accessibilityLabel("An image slider displaying popular drinks.")
+                                .accessibilityHint("Clicking this image slider will take you to a page that diplays popular drinks.")
+                                
+                                
+//                                VStack(alignment: .leading){
+//                                    Text("All Menu Items")
+//                                        .font(.title)
+//                                        .fontWeight(.bold)
+//                                        .padding(.horizontal)
+//                                        .foregroundColor(.sirenRed)
+//                                    
+//                                    ScrollView(.horizontal) {
+//                                        VStack(alignment: .leading) {
+//                                            
+//                                            HStack {
+//                                                ForEach(items, id:\.self) { item in
+//                                                    NavigationLink {
+//                                                        // PastryCustomizationView(pastry: item)
+//                                                    } label: {
+//                                                        ItemTileView(item: item)
+//                                                    }
+//                                                }
+//                                            }
+//                                        }
+//                                    }
+//                                }
+//                                .padding()
+                                
+                                
+                                Text("Drinks")
+                                    .font(.title)
+                                    .fontWeight(.bold)
+                                    .padding(.horizontal)
+                                    .foregroundColor(.sirenRed)
+                                
+                                ScrollView(.horizontal) {
+                                    
+                                    HStack {
+                                        ForEach(coffees, id:\.self) { coffee in
+                                            NavigationLink {
+                                                CoffeeCustomizationView(coffee: coffee)
+                                            } label : {
+                                                CoffeeTileView(coffee: coffee)
+                                            }
+                                        }
+                                    }
+                                    .padding(.horizontal, 5)
                                 }
                             }
                         }
+                        .sheet(isPresented: $showingSheet) {
+                            InfoPage()
+                            
+                        }
+                        VStack(alignment: .leading){
+                            Text("Pastries")
+                                .font(.title)
+                                .fontWeight(.bold)
+                                .padding(.horizontal)
+                                .foregroundColor(.sirenRed)
+                            
+                            ScrollView(.horizontal) {
+                                VStack(alignment: .leading) {
+                                    
+                                    HStack {
+                                        ForEach(pastries) { pastry in
+                                            NavigationLink {
+                                                PastryCustomizationView(pastry: pastry)
+                                            } label: {
+                                                PastryTileView(pastry: pastry)
+                                            }
+                                        }
+                                    }
+                                    .padding(.horizontal, 5)
+                                    
+                                    
+//                                    HStack {
+//                                        ForEach(pastries, id:\.self) { pastry in
+//                                            NavigationLink {
+//                                                PastryCustomizationView(pastry: pastry)
+//                                            } label: {
+//                                                PastryTileView(pastry: pastry)
+//                                            }
+//                                        }
+//                                    }
+                                }
+                            }
+                        }
+                        .padding(.horizontal, 5)
+                        
+                        //MARK: Lets add items here:
+                        
+                        Image(.sirenCafe)
+                            .resizable()
+                            .scaledToFit()
+                        
+                        Link("Book A Room With Us At The Siren Hotel?", destination: URL(string: "https://ash.world/hotels/the-siren/rooms/")!)
                     }
-                    //                HStack {
-                    //                    ForEach(popularItems, id:\.self) { coffee in
-                    //                        NavigationLink {
-                    //                            CoffeeCustomizationView(coffee: coffee)
-                    //                        } label : {
-                    //                            CoffeeTileView(coffee: coffee)
-                    //                        }
-                    //                    }
-                    //                }
-                    Image(.sirenCafe)
-                        .resizable()
-                        .scaledToFit()
-                        .padding()
                 }
             }
         }
@@ -124,5 +251,5 @@ struct PopularItemsView: View {
 }
 
 #Preview {
-    PopularItemsView()
+    MainScreen()
 }

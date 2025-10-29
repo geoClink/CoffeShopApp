@@ -13,7 +13,7 @@ struct PastryCustomizationView: View {
     @State var customerName: String = ""
     @State private var showingSheet: Bool = false
     @State private var showingPastryDetailSheet: Bool = false
-    
+    @State private var orderNumber: String = ""
     var body: some View {
         
         ZStack {
@@ -58,15 +58,30 @@ struct PastryCustomizationView: View {
                     .fontWeight(.bold)
                 
                 Button("Review Order") {
+                    orderNumber = Self.generateOrderNumber()
                     showingSheet.toggle()
                 }
             }
             .padding()
             .sheet(isPresented: $showingSheet) {
-                PastryConfirmationView(pastry: pastry, customerName: customerName)
+                PastryConfirmationView(pastry: pastry, customerName: customerName, orderNumber: orderNumber)
+                    .onAppear {
+                        orderNumber = Self.generateOrderNumber()
+                            
+                    }
             }
         }
     }
+    
+    static func generateOrderNumber() -> String {
+        let prefix = "ORD"
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyyMMdd"
+        let datePart = dateFormatter.string(from: Date())
+        let random = Int.random(in: 100...999)
+        return "\(prefix)-\(datePart)-\(random)"
+    }
+    
 }
 
 #Preview {

@@ -9,25 +9,25 @@ import SwiftUI
 
 struct ItemTileView: View {
     
-    var items: Items
+    var item: Item
     
     var body: some View {
        
         ZStack{
                 VStack{
                     
-                    Image(items.assetName)
+                    Image(item.assetName)
                         .resizable()
                         .scaledToFit()
                         .padding()
                         .clipShape(RoundedRectangle(cornerRadius: 50))
                     
-                    Text(items.name)
+                    Text(item.name)
                         .foregroundColor(Color.white)
                         .font(.title)
                         .fontWeight(.bold)
                     
-                    Text("$\(items.calculatePrice(), specifier: "%.2f")")
+                    Text("$\(item.calculatePrice(), specifier: "%.2f")")
                         .foregroundColor(Color.white)
                         .padding(.bottom)
 
@@ -45,5 +45,5 @@ struct ItemTileView: View {
 
 
 #Preview {
-    ItemTileView(items: Items(name: "Latte", assetName: "Latte", prices: 5.50, description: ""))
+    ItemTileView(item: Item(name: "Latte", assetName: "Latte", prices: 5.50, description: ""))
 }

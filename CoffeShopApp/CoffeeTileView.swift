@@ -36,9 +36,28 @@ struct CoffeeTileView: View {
                 .background(RoundedRectangle.init(cornerRadius: 16))
                 .foregroundColor(.sirenRed)
                 .frame(width: 225, height: 300)
-//                .shadow(color: Color(.black), radius: 5, x: 1.0, y: 1)
-  
+    
+            VStack{
+            Image(coffee.assetName)
+                .resizable()
+                .scaledToFit()
+                .padding()
+                .clipShape(RoundedRectangle(cornerRadius: 50))
+            
+            Text(coffee.name)
+                .foregroundColor(Color.white)
+                .font(.title)
+                .fontWeight(.bold)
+            
+                Text("$\(coffee.calculatePrice(), specifier: "%.2f")")
+                    .foregroundColor(Color.white)
+                    .padding(.bottom)
+    
+                }
+                .foregroundColor(.sirenRed)
+                .frame(width: 225, height: 300)
         }
+        .padding(4)
     }
 }
 
@@ -46,6 +65,6 @@ struct CoffeeTileView: View {
     
     
     ScrollView{
-        CoffeeTileView(coffee: Coffee(name: "Latte", assetName: "Latte", prices: 4.50, description: ""))
+        CoffeeTileView(coffee: Coffee(name: "Latte", assetName: "Latte", prices: 4.50, description: "", basePrice: 4.50))
     }
 }

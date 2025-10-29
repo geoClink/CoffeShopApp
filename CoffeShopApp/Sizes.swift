@@ -16,11 +16,11 @@ import SwiftUI
             var basePrice: Double {
                 switch self {
                 case .Small:
-                    return 4.50
+                    return 1.0
                 case .Medium:
-                    return 5.0
+                    return 1.2
                 case .Large:
-                    return 5.5
+                    return 1.4
                 }
             }
         }

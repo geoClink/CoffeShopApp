@@ -44,5 +44,5 @@ struct CartProductView: View {
 
   
 #Preview {
-    CartProductView(coffee: Coffee(name: "Latte", assetName: "Latte", prices: 5.50, description: ""))
+    CartProductView(coffee: Coffee(name: "Latte", assetName: "Latte", prices: 5.50, description: "", basePrice: 5.50))
 }

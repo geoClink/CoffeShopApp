@@ -15,8 +15,11 @@ struct CoffeeCustomizationView: View {
     @State private var specialRequest: String = ""
     @State private var showingDrinkDetailSheet: Bool = false
     @State var toGo: Bool = false
-    
+    @State private var orderNumber: String = ""
+    @State private var isCelebrating = false
 
+    
+    
     
     var body: some View {
         
@@ -32,16 +35,12 @@ struct CoffeeCustomizationView: View {
                         .padding()
                 }
                 .sheet(isPresented: $showingDrinkDetailSheet) {
-                   ShowingDrinkDetailSheet(coffee: coffee)
-                }
+                    ShowingDrinkDetailSheet(coffee: coffee)
 
+                }
+                
                 .accessibilityLabel("More information regarding the selected drink.")
                 .accessibilityHint("Clicking the image will explain the selected drink in more detail.")
-//                            .accessibilityLabel("")
-//                            .accessibilityHint("")
-
-                
-                
                 
                 
                 VStack(alignment: .leading){
@@ -80,6 +79,10 @@ struct CoffeeCustomizationView: View {
                         .fontWeight(.bold)
                         .padding()
                     
+                    Toggle("Cold Foam?", isOn: $coffee.coldFoam)
+                        .fontWeight(.bold)
+                        .padding()
+                    
                     
                     Toggle("Iced?", isOn: $coffee.iced)
                         .fontWeight(.bold)
@@ -88,12 +91,12 @@ struct CoffeeCustomizationView: View {
                     Toggle("To Go?", isOn: $coffee.toGo)
                         .fontWeight(.bold)
                         .padding()
-                        
-//                    var inStore =  coffee.toGo ? "To Go " : " For here"
-//                    Toggle("\(inStore)", isOn: $coffee.toGo)
-//                        .fontWeight(.bold)
-//                        .padding()
                     
+                    //                    var inStore =  coffee.toGo ? "To Go " : " For here"
+                    //                    Toggle("\(inStore)", isOn: $coffee.toGo)
+                    //                        .fontWeight(.bold)
+                    //                        .padding()
+                    //
                     TextField("Special Requests", text: $specialRequest)
                         .fontWeight(.bold)
                         .padding()
@@ -107,22 +110,39 @@ struct CoffeeCustomizationView: View {
                     showingSheet.toggle()
                 }
                 .sheet(isPresented: $showingSheet) {
-                    CoffeeOrderConfirmationView(coffee: coffee, customerName: customerName, toGo: coffee.toGo)
+                    CoffeeOrderConfirmationView(coffee: coffee,
+                    customerName: customerName,
+                    toGo: coffee.toGo,
+                    orderNumber: orderNumber)
+                        .onAppear {
+                            orderNumber = Self.generateOrderNumber()
+                        }
                 }
             }
         }
     }
-    func updateOrder() {
-        if specialRequest != "" {
-            coffee.specialRequests = specialRequest
-        }
-    }
     
+    
+    
+        func updateOrder() {
+            if specialRequest != "" {
+                coffee.specialRequests = specialRequest
+            }
+        }
+    static func generateOrderNumber() -> String {
+        let prefix = "ORD"
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyyMMdd"
+        let datePart = dateFormatter.string(from: Date())
+        let random = Int.random(in: 100...999)
+        return "\(prefix)-\(datePart)-\(random)"
     }
+}
+
 
 
 #Preview {
    
-    CoffeeCustomizationView(coffee: Coffee(name: "Latte", assetName: "Latte", prices: 4.50, description: ""))
+    CoffeeCustomizationView(coffee: Coffee(name: "Latte", assetName: "Latte", prices: 4.50, description: "", basePrice: 4.50))
 }
 

@@ -13,32 +13,36 @@ struct PastryTileView: View {
     
     var body: some View {
         
-        
- 
+        ZStack{
+   
+            RoundedRectangle(cornerRadius: 16)
+//                .shadow(color: Color(.black), radius: 5, x: 5, y: 5)
+                .foregroundColor(.sirenRed)
+                .frame(width: 225, height: 300)
+    
             VStack{
-                
-                Image(pastry.assetName)
-                    .resizable()
-                    .scaledToFit()
-                    .padding()
-                    .clipShape(RoundedRectangle(cornerRadius: 50))
-                
-                Text(pastry.name)
-                    .foregroundColor(Color.white)
-                    .font(.title)
-                    .fontWeight(.bold)
-                
+            Image(pastry.assetName)
+                .resizable()
+                .scaledToFit()
+                .padding()
+                .clipShape(RoundedRectangle(cornerRadius: 50))
+            
+            Text(pastry.name)
+                .foregroundColor(Color.white)
+                .font(.title)
+                .fontWeight(.bold)
+            
                 Text("$\(pastry.prices,specifier: "%.2f")")
                     .foregroundColor(Color.white)
                     .padding(.bottom)
-
-            }
-            .background(RoundedRectangle.init(cornerRadius: 16))
-            .foregroundColor(.sirenRed)
-            .frame(width: 225, height: 300)
+    
+                }
+                .foregroundColor(.sirenRed)
+                .frame(width: 225, height: 300)
         }
-        //            .shadow(color: Color(.black), radius: 5, x: 1.0, y: 1)
+        .padding(4)
     }
+}
 
 
 #Preview {

@@ -36,5 +36,5 @@ struct ShowingDrinkDetailSheet: View {
 }
 
 #Preview {
-    ShowingDrinkDetailSheet(coffee: Coffee(name: "Latte", assetName: "Latte", prices: 4.55, description: "A smooth and creamy espresso-based beverage made with freshly pulled espresso and steamed milk, finished with a thin layer of silky microfoam. The latte balances bold coffee notes with a mellow, velvety texture, making it comforting and approachable. Enjoy it plain to appreciate the espresso’s character, or customize with flavors like vanilla, caramel, or hazelnut. Perfect for a gentle caffeine lift and a luxurious, everyday sip."))
+    ShowingDrinkDetailSheet(coffee: Coffee(name: "Latte", assetName: "Latte", prices: 4.50, description: "A smooth and creamy espresso-based beverage made with freshly pulled espresso and steamed milk, finished with a thin layer of silky microfoam. The latte balances bold coffee notes with a mellow, velvety texture, making it comforting and approachable. Enjoy it plain to appreciate the espresso’s character, or customize with flavors like vanilla, caramel, or hazelnut. Perfect for a gentle caffeine lift and a luxurious, everyday sip.", basePrice: 4.50))
 }

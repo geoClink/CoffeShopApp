@@ -19,26 +19,52 @@ struct Coffee: Hashable {
     var toGo: Bool = false
     var specialRequests: String?
     var description: String
+    var coldFoam: Bool = false
+    var basePrice: Double
     
     func calculatePrice() -> Double {
-        var price = sizes.basePrice
+        var price = basePrice * sizes.basePrice
         let taxRate = 0.08
         
-        if milks == .Almond {
+        switch milks {
+        case .Whole:
+            break
+        case .Oat:
+            price += 0.5
+        case .Almond:
+            price += 0.5
+        case .Soy:
+            price += 0.5
+        case .Coconut:
             price += 0.5
         }
-        if milks == .Oat {
-            price += 0.5
-        }
-        if milks == .Soy {
-            price += 0.5
-        }
-        if milks == .Coconut {
-            price += 0.5
-        }
-                
-            return price + (price * taxRate)
         
+        if coldFoam {
+            price += 0.5
+        }
+        
+        if shots > 0 {
+            price += Double(shots) * 0.75
+        }
+    
+    //        if milks == .Almond {
+    //            price += 0.5
+    //        }
+    //        if milks == .Oat {
+    //            price += 0.5
+    //        }
+    //        if milks == .Soy {
+    //            price += 0.5
+    //        }
+    //        if milks == .Coconut {
+    //            price += 0.5
+    //        }
+    //        if coldFoam == true {
+    //            price += 0.5
+    //        }
+    
+    return price + (1.0 * taxRate)
+    
     }
 }
 

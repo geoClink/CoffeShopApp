@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct Pastry: Hashable {
-   
+struct Pastry: Identifiable, Hashable {
+   let id = UUID()
     var name: String
     var assetName: String
     var prices: Double

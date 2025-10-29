@@ -6,9 +6,9 @@
 //
 
 import SwiftUI
-
+//
 //struct Items: Hashable {
-    
+//    
 //    var name: String
 //    var assetName: String
 //    var prices: Double
@@ -42,10 +42,38 @@ import SwiftUI
 //    }
 //}
 
-    struct Item: Identifiable, Hashable {
-        let id = UUID()
-        let name: String
-        let assetName: String
-        let prices: Double
-        let description: String
+struct Item: Identifiable, Hashable {
+    let id = UUID()
+    var name: String
+    var assetName: String
+    var prices: Double
+    var sizes: Sizes = .Small
+    var milks: Milks = .Whole
+    var shots: Int = 0
+    var iced: Bool = false
+    var toGo: Bool = false
+    var specialRequests: String?
+    var description: String
+    
+
+    
+    func calculatePrice() -> Double {
+        var price = sizes.basePrice
+        let taxRate = 0.08
+        
+        if milks == .Almond {
+            price += 0.5
+        }
+        if milks == .Oat {
+            price += 0.5
+        }
+        if milks == .Soy {
+            price += 0.5
+        }
+        if milks == .Coconut {
+            price += 0.5
+        }
+        
+        return price + (price * taxRate)
     }
+}
