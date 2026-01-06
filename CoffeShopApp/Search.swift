@@ -12,7 +12,7 @@ import SwiftUI
 //        Product(name: "Cortado"),
 //        Product(name: "Espresso"),
 //        Product(name: "Latte"),
-//        Product(name: "Black Coffee"),
+//        Product(name: "Black item"),
 //        Product(name: "Frappe"),
 //        Product(name: "Matcha"),
 //        Product(name: "Macchiato"),

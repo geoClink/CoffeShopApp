@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct CoffeeOrderConfirmationView: View {
+struct itemOrderConfirmationView: View {
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     
-    let coffee: Coffee
+    let item: Item
     //    let pastry: Pastry?
     let customerName: String
     let toGo: Bool
@@ -44,28 +44,28 @@ struct CoffeeOrderConfirmationView: View {
                             .padding()
                         
                         
-//                        Text("\(customerName) You ordered a \(coffee.sizes) \(coffee.name) \(coffee.toGo ? "To Go" : "For Here") with \(coffee.milks) milk .")
+//                        Text("\(customerName) You ordered a \(item.sizes) \(item.name) \(item.toGo ? "To Go" : "For Here") with \(item.milks) milk .")
 //                            .font(.title)
 //                            .padding()
                         Text("\(customerName) ordered:")
                             .font(.headline)
                         
-                        if let specialRequest = coffee.specialRequests {
+                        if let specialRequest = item.specialRequests {
                             Text("You requested: \(specialRequest)")
                                 .padding()
                         }
                         
                         
-                        Text("Size: \(coffee.sizes)")
-                        Text("Drink: \(coffee.name)")
-                        Text("Milk: \(coffee.milks)")
-                        Text("Shots: \(coffee.shots)")
-                        Text("Iced?: \(coffee.iced)")
+                        Text("Size: \(item.sizes)")
+                        Text("Drink: \(item.name)")
+                        Text("Milk: \(item.milks)")
+                        Text("Shots: \(item.shots)")
+                        Text("Iced?: \(item.iced)")
 
                         
 
                     
-                        Text("Price:  $\(coffee.calculatePrice(), specifier: "%.2f")")
+                        Text("Price:  $\(item.calculatePrice(), specifier: "%.2f")")
                             .font(.title)
                             .fontWeight(.bold)
                             .padding()
@@ -93,5 +93,5 @@ struct CoffeeOrderConfirmationView: View {
 }
 //}
 #Preview {
-    CoffeeOrderConfirmationView(coffee: Coffee(name: "Latte", assetName: "Latte", prices: 4.50, description: "", basePrice: 4.50), customerName: "", toGo: false, orderNumber: "")
+    itemOrderConfirmationView(item: Item(name: "Latte", assetName: "Latte", prices: 4.50, description: "", itemType: .drink, basePrice: 4.50), customerName: "", toGo: false, orderNumber: "")
 }

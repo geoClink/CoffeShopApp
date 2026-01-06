@@ -26,11 +26,11 @@ struct PastryCustomizationView: View {
 //                Button {
 //                    showingDrinkDetailSheet.toggle()
 //                } label: {
-//                    CoffeeTileView(coffee: coffee)
+//                    itemTileView(item: item)
 //                        .padding()
 //                }
 //                .sheet(isPresented: $showingDrinkDetailSheet) {
-//                   ShowingDrinkDetailSheet(coffee: coffee)
+//                   ShowingDrinkDetailSheet(item: item)
 //                }
 //
 //                .accessibilityLabel("The Siren Cafe Info Page")

@@ -45,5 +45,5 @@ struct ItemTileView: View {
 
 
 #Preview {
-    ItemTileView(item: Item(name: "Latte", assetName: "Latte", prices: 5.50, description: ""))
+    ItemTileView(item: Item(name: "Latte", assetName: "Latte", prices: 5.50, description: "", itemType: .drink, basePrice: 4.50))
 }

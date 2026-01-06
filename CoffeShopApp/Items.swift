@@ -43,6 +43,11 @@ import SwiftUI
 //}
 
 struct Item: Identifiable, Hashable {
+    
+    enum ItemType: String, CaseIterable {
+        case drink, pastry
+    }
+    
     let id = UUID()
     var name: String
     var assetName: String
@@ -54,7 +59,9 @@ struct Item: Identifiable, Hashable {
     var toGo: Bool = false
     var specialRequests: String?
     var description: String
-    
+    var itemType: ItemType
+    var basePrice: Double
+
 
     
     func calculatePrice() -> Double {

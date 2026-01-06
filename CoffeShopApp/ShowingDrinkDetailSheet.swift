@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ShowingDrinkDetailSheet: View {
     
-    var coffee: Coffee
+    var item: Item
     
     var body: some View {
         
@@ -18,15 +18,15 @@ struct ShowingDrinkDetailSheet: View {
                 .ignoresSafeArea()
             VStack {
                 
-                Text(coffee.name)
+                Text(item.name)
                     .font(.title)
                 
-                Image(coffee.assetName)
+                Image(item.assetName)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 300, height: 300)
                 
-                Text(coffee.description)
+                Text(item.description)
                     .padding()
             }
             .foregroundColor(.sirenRed)
@@ -36,5 +36,5 @@ struct ShowingDrinkDetailSheet: View {
 }
 
 #Preview {
-    ShowingDrinkDetailSheet(coffee: Coffee(name: "Latte", assetName: "Latte", prices: 4.50, description: "A smooth and creamy espresso-based beverage made with freshly pulled espresso and steamed milk, finished with a thin layer of silky microfoam. The latte balances bold coffee notes with a mellow, velvety texture, making it comforting and approachable. Enjoy it plain to appreciate the espresso’s character, or customize with flavors like vanilla, caramel, or hazelnut. Perfect for a gentle caffeine lift and a luxurious, everyday sip.", basePrice: 4.50))
+    ShowingDrinkDetailSheet(item: Item(name: "Latte", assetName: "Latte", prices: 4.50, description: "A smooth and creamy espresso-based beverage made with freshly pulled espresso and steamed milk, finished with a thin layer of silky microfoam. The latte balances bold item notes with a mellow, velvety texture, making it comforting and approachable. Enjoy it plain to appreciate the espresso’s character, or customize with flavors like vanilla, caramel, or hazelnut. Perfect for a gentle caffeine lift and a luxurious, everyday sip.", itemType: .drink, basePrice: 4.50))
 }

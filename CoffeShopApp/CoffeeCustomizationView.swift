@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct CoffeeCustomizationView: View {
+struct itemCustomizationView: View {
     
-    @State var coffee: Coffee
+    @State var item: Item
     @State var customerName: String = ""
     @State private var showingSheet: Bool = false
     @State private var specialRequest: String = ""
@@ -17,6 +17,8 @@ struct CoffeeCustomizationView: View {
     @State var toGo: Bool = false
     @State private var orderNumber: String = ""
     @State private var isCelebrating = false
+    var coldFoam: Bool = false
+
 
     
     
@@ -31,11 +33,11 @@ struct CoffeeCustomizationView: View {
                 Button {
                     showingDrinkDetailSheet.toggle()
                 } label: {
-                    CoffeeTileView(coffee: coffee)
+                    itemTileView(item: item)
                         .padding()
                 }
                 .sheet(isPresented: $showingDrinkDetailSheet) {
-                    ShowingDrinkDetailSheet(coffee: coffee)
+                    ShowingDrinkDetailSheet(item: item)
 
                 }
                 
@@ -51,7 +53,7 @@ struct CoffeeCustomizationView: View {
                         .padding(.horizontal)
                     
                     
-                    Picker("Sizes", selection: $coffee.sizes) {
+                    Picker("Sizes", selection: $item.sizes) {
                         ForEach(Sizes.allCases, id: \.self) {
                             Text($0.rawValue)
                         }
@@ -66,7 +68,7 @@ struct CoffeeCustomizationView: View {
                         .padding(.horizontal)
                     
                     
-                    Picker("Milks", selection: $coffee.milks) {
+                    Picker("Milks", selection: $item.milks) {
                         ForEach(Milks.allCases, id: \.self) {
                             Text($0.rawValue)
                         }
@@ -75,25 +77,25 @@ struct CoffeeCustomizationView: View {
                     .padding()
                     
                     
-                    Stepper("Shots : \(coffee.shots)", value: $coffee.shots, in: 1...3)
+                    Stepper("Shots : \(item.shots)", value: $item.shots, in: 1...3)
                         .fontWeight(.bold)
                         .padding()
                     
-                    Toggle("Cold Foam?", isOn: $coffee.coldFoam)
+//                    Toggle("Cold Foam?", isOn: $item.coldFoam)
+//                        .fontWeight(.bold)
+//                        .padding()
+//                    
+                    
+                    Toggle("Iced?", isOn: $item.iced)
                         .fontWeight(.bold)
                         .padding()
                     
-                    
-                    Toggle("Iced?", isOn: $coffee.iced)
+                    Toggle("To Go?", isOn: $item.toGo)
                         .fontWeight(.bold)
                         .padding()
                     
-                    Toggle("To Go?", isOn: $coffee.toGo)
-                        .fontWeight(.bold)
-                        .padding()
-                    
-                    //                    var inStore =  coffee.toGo ? "To Go " : " For here"
-                    //                    Toggle("\(inStore)", isOn: $coffee.toGo)
+                    //                    var inStore =  item.toGo ? "To Go " : " For here"
+                    //                    Toggle("\(inStore)", isOn: $item.toGo)
                     //                        .fontWeight(.bold)
                     //                        .padding()
                     //
@@ -110,9 +112,9 @@ struct CoffeeCustomizationView: View {
                     showingSheet.toggle()
                 }
                 .sheet(isPresented: $showingSheet) {
-                    CoffeeOrderConfirmationView(coffee: coffee,
+                    itemOrderConfirmationView(item: item,
                     customerName: customerName,
-                    toGo: coffee.toGo,
+                    toGo: item.toGo,
                     orderNumber: orderNumber)
                         .onAppear {
                             orderNumber = Self.generateOrderNumber()
@@ -126,7 +128,7 @@ struct CoffeeCustomizationView: View {
     
         func updateOrder() {
             if specialRequest != "" {
-                coffee.specialRequests = specialRequest
+                item.specialRequests = specialRequest
             }
         }
     static func generateOrderNumber() -> String {
@@ -143,6 +145,6 @@ struct CoffeeCustomizationView: View {
 
 #Preview {
    
-    CoffeeCustomizationView(coffee: Coffee(name: "Latte", assetName: "Latte", prices: 4.50, description: "", basePrice: 4.50))
+    itemCustomizationView(item: Item(name: "Latte", assetName: "Latte", prices: 4.50, description: "", itemType: .drink, basePrice: 4.50))
 }
 

@@ -9,19 +9,19 @@ import SwiftUI
 
 struct CartProductView: View {
     
-    var coffee: Coffee
+    var item: item
     
     var body: some View {
         HStack ( spacing: 20) {
-            Image(coffee.assetName)
+            Image(item.assetName)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 70)
                 .cornerRadius(9)
             VStack(alignment: .leading,  spacing: 5) {
-                Text(coffee.name)
+                Text(item.name)
                     .bold()
-                Text("$ \(coffee.prices, specifier: "%.2f")")
+                Text("$ \(item.prices, specifier: "%.2f")")
                     .bold()
             }
             .padding()
@@ -44,5 +44,5 @@ struct CartProductView: View {
 
   
 #Preview {
-    CartProductView(coffee: Coffee(name: "Latte", assetName: "Latte", prices: 5.50, description: "", basePrice: 5.50))
+    CartProductView(item: item(name: "Latte", assetName: "Latte", prices: 5.50, description: "", basePrice: 5.50))
 }

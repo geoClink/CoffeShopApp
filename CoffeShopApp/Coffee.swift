@@ -1,5 +1,5 @@
 //
-//  Coffee.swift
+//  item.swift
 //  CoffeShopApp
 //
 //  Created by George Clinkscales on 10/13/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Coffee: Hashable {
+struct item: Hashable {
     
     var name: String
     var assetName: String

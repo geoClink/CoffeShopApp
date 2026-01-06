@@ -8,7 +8,7 @@
 import SwiftUI
 //
 //struct ItemCustomizationView: View {
-//    @State var coffee: Coffee
+//    @State var item: item
 //    @State var customerName: String = ""
 //    @State private var showingSheet: Bool = false
 //    @State private var specialRequest: String = ""
@@ -34,7 +34,7 @@ import SwiftUI
 //                            
 //                    }
 //                    .sheet(isPresented: $showingDrinkDetailSheet) {
-//                       ShowingDrinkDetailSheet(coffee: coffee)
+//                       ShowingDrinkDetailSheet(item: item)
 //                    }
 //
 //                    .accessibilityLabel("More information regarding the selected drink.")
@@ -54,7 +54,7 @@ import SwiftUI
 //                            .padding(.horizontal)
 //                        
 //                        
-//                        Picker("Sizes", selection: $coffee.sizes) {
+//                        Picker("Sizes", selection: $item.sizes) {
 //                            ForEach(Sizes.allCases, id: \.self) {
 //                                Text($0.rawValue)
 //                            }
@@ -69,7 +69,7 @@ import SwiftUI
 //                            .padding(.horizontal)
 //                        
 //                        
-//                        Picker("Milks", selection: $coffee.milks) {
+//                        Picker("Milks", selection: $item.milks) {
 //                            ForEach(Milks.allCases, id: \.self) {
 //                                Text($0.rawValue)
 //                            }
@@ -78,21 +78,21 @@ import SwiftUI
 //                        .padding()
 //                        
 //                        
-//                        Stepper("Shots : \(coffee.shots)", value: $coffee.shots, in: 1...3)
+//                        Stepper("Shots : \(item.shots)", value: $item.shots, in: 1...3)
 //                            .fontWeight(.bold)
 //                            .padding()
 //                        
 //                        
-//                        Toggle("Iced?", isOn: $coffee.iced)
+//                        Toggle("Iced?", isOn: $item.iced)
 //                            .fontWeight(.bold)
 //                            .padding()
 //                        
-//                        Toggle("To Go?", isOn: $coffee.toGo)
+//                        Toggle("To Go?", isOn: $item.toGo)
 //                            .fontWeight(.bold)
 //                            .padding()
 //                            
-//    //                    var inStore =  coffee.toGo ? "To Go " : " For here"
-//    //                    Toggle("\(inStore)", isOn: $coffee.toGo)
+//    //                    var inStore =  item.toGo ? "To Go " : " For here"
+//    //                    Toggle("\(inStore)", isOn: $item.toGo)
 //    //                        .fontWeight(.bold)
 //    //                        .padding()
 //                        
@@ -109,7 +109,7 @@ import SwiftUI
 //                        showingSheet.toggle()
 //                    }
 //                    .sheet(isPresented: $showingSheet) {
-//                        CoffeeOrderConfirmationView(coffee: coffee, customerName: customerName, toGo: coffee.toGo)
+//                        itemOrderConfirmationView(item: item, customerName: customerName, toGo: item.toGo)
 //                    }
 //                }
 //            }
