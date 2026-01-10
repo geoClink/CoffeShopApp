@@ -8,12 +8,14 @@
 import SwiftUI
 
 struct PastryCustomizationView: View {
-    
-    @State var pastry: Pastry
+    @Binding var orderedPastry: [Item]
+    let item: Item
+    @State private var pastry: Pastry = Pastry(name: "", assetName: "", prices: 0, description: "")
     @State var customerName: String = ""
     @State private var showingSheet: Bool = false
     @State private var showingPastryDetailSheet: Bool = false
     @State private var orderNumber: String = ""
+    
     var body: some View {
         
         ZStack {
@@ -21,21 +23,6 @@ struct PastryCustomizationView: View {
                 .ignoresSafeArea()
             
             VStack() {
-                
-                
-//                Button {
-//                    showingDrinkDetailSheet.toggle()
-//                } label: {
-//                    itemTileView(item: item)
-//                        .padding()
-//                }
-//                .sheet(isPresented: $showingDrinkDetailSheet) {
-//                   ShowingDrinkDetailSheet(item: item)
-//                }
-//
-//                .accessibilityLabel("The Siren Cafe Info Page")
-//                .accessibilityHint("This button will take you to a page giving details about the cafe like address, phone number and openig date.")
-                
                 
                 Button {
                     showingPastryDetailSheet.toggle()
@@ -47,7 +34,6 @@ struct PastryCustomizationView: View {
                     ShowingPastryDetailSheet(pastry: pastry)
                 }
                 
-                
                 Toggle("Toasted?", isOn: $pastry.toasted)
                     .fontWeight(.bold)
                 
@@ -57,18 +43,38 @@ struct PastryCustomizationView: View {
                 TextField("Name", text: $customerName)
                     .fontWeight(.bold)
                 
-                Button("Review Order") {
+                Button("Review Your Drink") {
                     orderNumber = Self.generateOrderNumber()
                     showingSheet.toggle()
                 }
             }
             .padding()
+            .onAppear {
+                if pastry.name.isEmpty {
+                    pastry = Pastry(
+                        name: item.name,
+                        assetName: item.assetName,
+                        prices: item.prices,
+                        description: item.description
+                    )
+                    
+                }
+            }
             .sheet(isPresented: $showingSheet) {
-                PastryConfirmationView(pastry: pastry, customerName: customerName, orderNumber: orderNumber)
+                PastryConfirmationView(item: item, customerName: customerName, orderedPastry: $orderedPastry, orderNumber: orderNumber)
                     .onAppear {
                         orderNumber = Self.generateOrderNumber()
-                            
+                        if pastry.name.isEmpty {
+                            pastry = Pastry(
+                                name: item.name,
+                                assetName: item.assetName,
+                                prices: item.prices,
+                                description: item.description
+                            )
+                        }
                     }
+                    .presentationDetents([.medium])
+
             }
         }
     }
@@ -85,7 +91,6 @@ struct PastryCustomizationView: View {
 }
 
 #Preview {
-   
-    PastryCustomizationView(pastry: Pastry(name: "Muffin", assetName: "Muffin", prices: 5.55, toasted: false, description: ""))
+    PastryCustomizationView(orderedPastry: .constant([]), item: Item(name: "Muffin", assetName: "Muffin", prices: 3.50, description: "", itemType: .pastry, basePrice: 3.50)
+    )
 }
-

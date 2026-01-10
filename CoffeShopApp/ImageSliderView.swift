@@ -21,6 +21,10 @@ struct ImageSliderView: View {
                     .frame(width: .infinity, height: 180)
                     .scaledToFit()
                     .cornerRadius(15)
+                    .overlay(
+                                RoundedRectangle(cornerRadius: 15)
+                                    .stroke(Color.sirenRed, lineWidth: 5)
+                            )
 //                    .border(.sirenRed, width: 10)
 //                    .cornerRadius(15)
                 

@@ -6,22 +6,41 @@
 //
 
 import SwiftUI
+
+
+
+
 //
-//struct ItemCustomizationView: View {
-//    @State var item: item
-//    @State var customerName: String = ""
-//    @State private var showingSheet: Bool = false
-//    @State private var specialRequest: String = ""
-//    @State private var showingDrinkDetailSheet: Bool = false
-//    @State var toGo: Bool = false
-//    
-//    @State var pastry: Pastry
-//    @State var customerName: String = ""
-//    @State private var showingSheet: Bool = false
-//    @State private var showingPastryDetailSheet: Bool = false
-//
-//    var body: some View {
-//        
+struct ItemCustomizationView: View {
+    @Binding var orderedDrink: [Item]
+    @Binding var orderedPastry: [Item]
+    var selectedItem: Item
+
+    //    @State var item: item
+    //    @State var customerName: String = ""
+    //    @State private var showingSheet: Bool = false
+    //    @State private var specialRequest: String = ""
+    //    @State private var showingDrinkDetailSheet: Bool = false
+    //    @State var toGo: Bool = false
+    //
+    //    @State var pastry: Pastry
+    //    @State var customerName: String = ""
+    //    @State private var showingSheet: Bool = false
+    //    @State private var showingPastryDetailSheet: Bool = false
+    //
+    var body: some View {
+        //
+        
+        if selectedItem.itemType == .drink {
+            DrinkCustomizationView(item: selectedItem, orderedDrink: $orderedDrink)
+        } else if selectedItem.itemType == .pastry {
+            PastryCustomizationView(orderedPastry: $orderedPastry, item: selectedItem)
+        }
+    }
+}
+
+        
+        
 //            ZStack {
 //                Color.sirenBeige
 //                    .ignoresSafeArea()
@@ -121,8 +140,8 @@ import SwiftUI
 //        }
 //        
 //        }
-//
+
 //
 //#Preview {
-//    ItemCustomizationView(items: Items(name: "Latte", assetName: "Latte", prices: 5.50, description: ""))
+//    ItemCustomizationView(selectedItem: item(name: "latee", assetName: "latee", prices: 4.50, description: "", basePrice: 4.50)))
 //}
