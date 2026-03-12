@@ -16,9 +16,10 @@ struct PastryTileView: View {
         ZStack{
    
             RoundedRectangle(cornerRadius: 16)
-//                .shadow(color: Color(.black), radius: 5, x: 5, y: 5)
                 .foregroundColor(.sirenRed)
                 .frame(width: 225, height: 300)
+                .shadow(color: Color(.black), radius: 5, x: 0, y: 0)
+
     
             VStack{
             Image(pastry.assetName)

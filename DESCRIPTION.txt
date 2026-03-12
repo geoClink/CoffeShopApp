@@ -1,0 +1,23 @@
+App Title: Coffee Shop – Brew & Bites
+
+Subtitle:
+A cozy cafe menu with customizable drinks and pastries.
+
+Long description (App Store style):
+
+Discover your new favorite cup with Coffee Shop – Brew & Bites. Browse a curated menu of handcrafted coffees, teas, and freshly baked pastries, then customize each item to match your taste. Whether you like a strong espresso, a creamy latte, or a sweet pastry, Coffee Shop makes it easy to build the perfect order.
+
+Features:
+- Browse high-quality images of drinks and pastries.
+- Customize drink sizes, milk types, and add-ons (syrups, shots, extras).
+- Add items to your cart and adjust quantities before checkout.
+- Search and filter popular items for quick ordering.
+- Delightful confirmation animations (confetti) after placing an order.
+
+Perfect for cafe owners, baristas, and coffee lovers, Coffee Shop showcases a modern SwiftUI UI with simple state management and a focus on delightful, pixel-perfect visuals.
+
+Privacy & data:
+This sample app stores data locally and does not collect personal information. If you add analytics or remote services, update the privacy policy accordingly.
+
+Support:
+For support or feedback, contact the developer or open an issue in the project repository.
