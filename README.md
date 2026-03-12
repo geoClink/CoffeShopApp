@@ -46,10 +46,6 @@ Notes
 - The app uses local assets in `Assets.xcassets`; ensure the asset catalog is present in the project in Xcode.
 - No external dependencies are required.
 
-License & Credits
------------------
-This project is provided as-is. Replace or add a proper license file if you plan to redistribute or publish the app.
-
 Contact
 -------
 For questions about this project, open an issue or contact the repository owner.
